@@ -19,8 +19,9 @@ import java.util.List;
 public class DownloaderService {
     private static final Logger LOGGER = LoggerFactory.getLogger(DownloaderService.class);
 
-    String httpFile = "http://releases.ubuntu.com/14.04.3/ubuntu-14.04.3-desktop-amd64.iso";
+    String httpFile1 = "http://releases.ubuntu.com/14.04.3/ubuntu-14.04.3-desktop-amd64.iso";
     String httpFile2 = "http://apache.mirror.globo.tech//httpd/httpd-2.4.33.tar.bz2";
+    String ftpFile = "ftp://speedtest.tele2.net/500MB.zip";
 
     @Value("${project.name}")
     String projectName;
@@ -28,8 +29,9 @@ public class DownloaderService {
     @Value("${server}")
     String server;
 
-    @Value("${download.servers}")
+    //@Value("${download.servers}")
     List<String> servers = new ArrayList<String>();
+    //servers.add("");
 
     public int start (){
         System.out.println(projectName);
@@ -49,7 +51,7 @@ public class DownloaderService {
           //  dstFile.mkdirs();
         //}
         try {
-            URL url = new URL(httpFile);
+            URL url = new URL(httpFile2);
             FileUtils.copyURLToFile(url, dstFile);
         } catch (Exception e) {
             System.err.println(e);
