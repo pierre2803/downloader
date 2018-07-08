@@ -1,0 +1,18 @@
+spring:
+    profiles: test
+name: test-YAML
+environment: test
+
+project:
+  name: YogaCal-service
+
+servers:
+  - www.abc.test.com
+  - www.xyz.test.com
+
+server: http://bla
+
+download:
+  servers:
+    - www.abc.test.com
+    - www.xyz.test.com
