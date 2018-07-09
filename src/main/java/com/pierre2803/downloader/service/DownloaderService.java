@@ -19,44 +19,30 @@ import java.util.List;
 public class DownloaderService {
     private static final Logger LOGGER = LoggerFactory.getLogger(DownloaderService.class);
 
-    String httpFile1 = "http://releases.ubuntu.com/14.04.3/ubuntu-14.04.3-desktop-amd64.iso";
-    String httpFile2 = "http://apache.mirror.globo.tech//httpd/httpd-2.4.33.tar.bz2";
-    String ftpFile = "ftp://speedtest.tele2.net/500MB.zip";
-
     @Value("${project.name}")
     String projectName;
 
-    @Value("${server}")
-    String server;
-
     //@Value("${download.servers}")
-    List<String> servers = new ArrayList<String>();
-    //servers.add("");
+    ArrayList<String> servers = new ArrayList<String>();
+
+    public void init(){
+        servers.add("http://releases.ubuntu.com/14.04.3/ubuntu-14.04.3-desktop-amd64.iso");
+        servers.add("http://apache.mirror.globo.tech//httpd/httpd-2.4.33.tar.bz2");
+        servers.add("ftp://speedtest.tele2.net/500MB.zip");
+
+    }
 
     public int start (){
+        init();
         System.out.println(projectName);
-        System.out.println("START DOWNLOAD "+server+" " + servers);
+        System.out.println("START DOWNLOAD " + servers);
         for(int i=0; i<servers.size(); i++)
             System.out.println("servers: " + servers.get(i));
 
+        DownloaderFactory factory = new DownloaderFactory();
 
-        File dstFile = null;
-
-        // check the directory for existence.
-        String dstFolder = "/Users/pierre/dev/downloader/test.iso";
-
-// Creates the destination folder if doesn't not exists
-        dstFile = new File(dstFolder);
-        //if (!dstFile.exists()) {
-          //  dstFile.mkdirs();
-        //}
-        try {
-            URL url = new URL(httpFile2);
-            FileUtils.copyURLToFile(url, dstFile);
-        } catch (Exception e) {
-            System.err.println(e);
-        }
-
+        ProtocolDownloader dl = factory.getProtocolDownloader(servers.get(1));
+        dl.download();
 
         return 0;
     }
