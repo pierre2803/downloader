@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.net.URL;
@@ -16,6 +17,7 @@ import java.util.List;
 @Configuration
 @EnableConfigurationProperties
 @ConfigurationProperties
+@Component
 public class DownloaderService {
     private static final Logger LOGGER = LoggerFactory.getLogger(DownloaderService.class);
 
@@ -28,12 +30,13 @@ public class DownloaderService {
     public void init(){
         servers.add("http://releases.ubuntu.com/14.04.3/ubuntu-14.04.3-desktop-amd64.iso");
         servers.add("http://apache.mirror.globo.tech//httpd/httpd-2.4.33.tar.bz2");
-        servers.add("ftp://speedtest.tele2.net/500MB.zip");
+        servers.add("ftp://speedtest.tele2.net/50MB.zip");
 
     }
 
     public int start (){
         init();
+
         System.out.println(projectName);
         System.out.println("START DOWNLOAD " + servers);
         for(int i=0; i<servers.size(); i++)
@@ -41,7 +44,7 @@ public class DownloaderService {
 
         DownloaderFactory factory = new DownloaderFactory();
 
-        ProtocolDownloader dl = factory.getProtocolDownloader(servers.get(1));
+        ProtocolDownloader dl = factory.getProtocolDownloader(servers.get(2));
         dl.download();
 
         return 0;

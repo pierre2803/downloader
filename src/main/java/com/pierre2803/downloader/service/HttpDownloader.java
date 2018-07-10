@@ -18,7 +18,7 @@ public class HttpDownloader extends ProtocolDownloader {
         File dstFile = null;
 
         // check the directory for existence.
-        String dstFolder = "/Users/pierre/dev/downloader/" + getFilename();
+        String dstFolder = "/Users/pierre/devs/downloader/" + getFilename();
 
         dstFile = new File(dstFolder);
         //if (!dstFile.exists()) {

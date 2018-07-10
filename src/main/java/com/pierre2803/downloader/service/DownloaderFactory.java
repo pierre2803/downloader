@@ -8,7 +8,8 @@ public class DownloaderFactory {
         }
         if(getProtocolName(url).equalsIgnoreCase("http")){
             return new HttpDownloader(url);
-
+        } else if(getProtocolName(url).equalsIgnoreCase("ftp")){
+            return new FtpDownloader(url);
         }
 
         return null;
