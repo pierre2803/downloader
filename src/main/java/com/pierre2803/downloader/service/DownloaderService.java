@@ -1,17 +1,17 @@
 package com.pierre2803.downloader.service;
 
-import org.apache.commons.io.FileUtils;
+import com.pierre2803.downloader.init.ServerListConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
-import java.io.File;
-import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Configuration
@@ -24,33 +24,32 @@ public class DownloaderService {
     @Value("${project.name}")
     String projectName;
 
-    //@Value("${download.servers}")
-    ArrayList<String> servers = new ArrayList<String>();
-
-    public void init(){
-        servers.add("http://releases.ubuntu.com/14.04.3/ubuntu-14.04.3-desktop-amd64.iso");
-        servers.add("http://apache.mirror.globo.tech//httpd/httpd-2.4.33.tar.bz2");
-        servers.add("ftp://speedtest.tele2.net/500MB.zip");
-
-        //https://test.rebex.net/
-        // Username/password = demo/password
-        servers.add("sftp://test.rebex.net/readme.txt");
-    }
+    @Autowired
+    ServerListConfig serverList;
 
     public int start (){
-        init();
-
-        System.out.println(projectName);
-        System.out.println("START DOWNLOAD " + servers);
-        for(int i=0; i<servers.size(); i++)
-            System.out.println("servers: " + servers.get(i));
+        LOGGER.info("Starting " + projectName);
+        LOGGER.info("Timeout set to " + serverList.getTimeout());
 
         DownloaderFactory factory = new DownloaderFactory();
+        serverList.getList().forEach(server -> {
+            LOGGER.info("Adding " + server);
+            //ProtocolDownloader dwnldr = factory.getProtocolDownloader(server);
+            //dwnldr.download();
+        });
 
-        ProtocolDownloader dl = factory.getProtocolDownloader(servers.get(2));
-        dl.download();
+        // Make a tread !!!
 
         return 0;
     }
 
 }
+
+/*
+* adding a link via config
+* if user and password are needed, add them to the end of the URL with # so it looks like url#user#password
+* Timeout is used to stop a hanging download
+* After timeout, an exception is caught and the partial data is deleted
+* Add a new protocol by implementing the interface ProtocolDownloader
+*
+* */

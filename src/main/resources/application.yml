@@ -1,18 +1,12 @@
-spring:
-    profiles: test
-name: test-YAML
-environment: test
-
 project:
-  name: YogaCal-service
+  name: DownloaderService
+
+localfilder: /Users/pierre/dev/
 
 servers:
-  - www.abc.test.com
-  - www.xyz.test.com
-
-server: http://bla
-
-download:
-  servers:
-    - www.abc.test.com
-    - www.xyz.test.com
+  timeout: 20000
+  list:
+    - http://apache.mirror.globo.tech//httpd/httpd-2.4.33.tar.bz2
+    - ftp://speedtest.tele2.net/5MB.zip#anonymous#
+    - sftp://test.rebex.net/readme.txt#demo#password
+    - http://releases.ubuntu.com/14.04.3/ubuntu-14.04.3-desktop-amd64.iso
