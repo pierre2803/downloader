@@ -47,7 +47,7 @@ public class DownloaderService {
 
         DownloaderFactory factory = new DownloaderFactory();
 
-        ProtocolDownloader dl = factory.getProtocolDownloader(servers.get(2));
+        ProtocolDownloader dl = factory.getProtocolDownloader(servers.get(3));
         dl.download();
 
         return 0;

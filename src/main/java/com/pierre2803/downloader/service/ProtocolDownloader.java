@@ -11,7 +11,7 @@ public abstract class ProtocolDownloader {
     abstract void download();
 
     public String getFilename(){
-        return this.url.substring(this.url.lastIndexOf("/"));
+        return this.url.substring(this.url.lastIndexOf("/")+1);
     }
 
     public String getProtocolName(){

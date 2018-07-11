@@ -10,6 +10,8 @@ public class DownloaderFactory {
             return new HttpDownloader(url);
         } else if(getProtocolName(url).equalsIgnoreCase("ftp")){
             return new FtpDownloader(url);
+        } else if(getProtocolName(url).equalsIgnoreCase("sftp")){
+            return new SftpDownloader(url);
         }
 
         return null;
