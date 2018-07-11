@@ -32,6 +32,9 @@ public class DownloaderService {
         servers.add("http://apache.mirror.globo.tech//httpd/httpd-2.4.33.tar.bz2");
         servers.add("ftp://speedtest.tele2.net/50MB.zip");
 
+        //https://test.rebex.net/
+        // Username/password = demo/password
+        servers.add("sftp://test.rebex.net/readme.txt");
     }
 
     public int start (){
