@@ -1,6 +1,7 @@
 package com.pierre2803.downloader.service;
 
 import org.apache.commons.net.PrintCommandListener;
+import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPReply;
 
@@ -27,11 +28,13 @@ public class FtpDownloader extends ProtocolDownloader {
 
         connect();
 
+        ftpClient.setDataTimeout(20000);
+
         System.out.println("Downloading " + this.url);
         File dstFile = null;
 
         // check the directory for existence.
-        String dstFolder = "/Users/pierre/devs/downloader/" + getFilename();
+        String dstFolder = "/Users/pierre/dev/downloader/" + getFilename();
 
         dstFile = new File(dstFolder);
         //if (!dstFile.exists()) {
@@ -56,7 +59,7 @@ public class FtpDownloader extends ProtocolDownloader {
                 throw new Exception("Exception in connecting to FTP Server");
             }
             ftpClient.login("anonymous", "");
-            //ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
+            ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
             ftpClient.enterLocalPassiveMode();
         } catch (IOException e) {
             e.printStackTrace();

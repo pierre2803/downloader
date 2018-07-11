@@ -30,7 +30,7 @@ public class DownloaderService {
     public void init(){
         servers.add("http://releases.ubuntu.com/14.04.3/ubuntu-14.04.3-desktop-amd64.iso");
         servers.add("http://apache.mirror.globo.tech//httpd/httpd-2.4.33.tar.bz2");
-        servers.add("ftp://speedtest.tele2.net/50MB.zip");
+        servers.add("ftp://speedtest.tele2.net/500MB.zip");
 
         //https://test.rebex.net/
         // Username/password = demo/password
@@ -47,7 +47,7 @@ public class DownloaderService {
 
         DownloaderFactory factory = new DownloaderFactory();
 
-        ProtocolDownloader dl = factory.getProtocolDownloader(servers.get(3));
+        ProtocolDownloader dl = factory.getProtocolDownloader(servers.get(2));
         dl.download();
 
         return 0;
